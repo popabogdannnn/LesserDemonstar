@@ -10,9 +10,9 @@ void GameClass::loadTextures()
 		std::cout << "Nu am reusit";
 	}
 
-	if (!this->player.texture.loadFromFile("Textures/Spaceship1.png")) {
+	/*if (!this->player.texture.loadFromFile("Textures/Spaceship1.png")) {
 		std::cout << "Nu am reusit";
-	}
+	}*/
 }
 
 void GameClass::initWindow()
