@@ -29,6 +29,7 @@ void GameClass::initVarsForBackground()
 {
 	this->slidingWindow.second = 4095;
 	this->slidingWindow.first = this->slidingWindow.second - 699;
+	//bau
 }
 
 void GameClass::pollEvents()
