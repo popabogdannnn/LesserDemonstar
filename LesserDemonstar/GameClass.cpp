@@ -14,6 +14,10 @@ void GameClass::loadTextures()
 		std::cout << "Nu am reusit";
 	}
 
+	if (!this->bulletTexture.loadFromFile("Textures/Laser.png")) {
+		std::cout << "Nu am reusit";
+	}
+
 	this->player->xSize = 128;
 	this->player->ySize = 128;
 
@@ -54,6 +58,7 @@ void GameClass::update()
 	this->pollEvents();
 	this->updateSlidingWindow();
 	this->updatePlayer();
+	this->updateObjects();
 }
 
 void GameClass::updateSlidingWindow()
@@ -70,6 +75,8 @@ void GameClass::updateSlidingWindow()
 void GameClass::updatePlayer()
 {
 
+	this->player->updateReloadingCooldown();
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		if (this->player->pos.x > 0) {
 			this->player->pos.x -= this->player->getSpeed();
@@ -81,6 +88,30 @@ void GameClass::updatePlayer()
 			this->player->pos.x += this->player->getSpeed();
 		}
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		if (this->player->canShoot()) {
+			activeBullets += this->player->shoot(this->bulletTexture);
+		}
+	}
+}
+
+void GameClass::updateObjects()
+{
+	Bullet* del = nullptr;
+	//std::cout << this->activeBullets() << "\n";
+	
+	for (int i = 0; i < this->activeBullets(); i++) {
+		this->activeBullets[i]->pos.y += this->activeBullets[i]->getSpeed();
+		//std::cout << this->activeBullets[i]->pos.y << "\n";
+		if (auto position = this->activeBullets[i]->pos.y; position < -20) {
+			del = this->activeBullets[i];
+		}
+	}
+
+	if (del != nullptr) {
+		this->activeBullets -= del;
+	}
 }
 
 
@@ -91,8 +122,8 @@ void GameClass::render()
 	this->window->clear();
 
 	this->drawBackground();
-	this->drawPlayer();
-
+	this->drawObject(this -> player);
+	this->drawBullets();
 	this->window->display();
 
 }
@@ -107,14 +138,23 @@ void GameClass::drawBackground()
 	this->window->draw(backImg);
 }
 
-void GameClass::drawPlayer()
-{
-	sf::Sprite playerSpaceship;
-	playerSpaceship.setTexture(this->player->texture);
-	playerSpaceship.setPosition(this->player->pos);
+void GameClass::drawObject(Object *obj)
+{       
+	sf::Sprite objSprite;
+	objSprite.setTexture(obj->texture);
+	objSprite.setPosition(obj->pos);
 	
-	this->window->draw(playerSpaceship);
+	this->window->draw(objSprite);
 }
+
+void GameClass::drawBullets()
+{
+	for (int i = 0; i < this->activeBullets(); i++) {
+		this->drawObject(this->activeBullets[i]);
+	}
+}
+
+
 
 //constructor / destructor
 

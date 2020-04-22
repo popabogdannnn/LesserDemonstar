@@ -8,7 +8,8 @@
 #include <SFML\Network.hpp>
 #include "Object.h"
 #include "Spaceship.h"
-
+#include "Bullet.h"
+#include "BestVector.h"
 
 class GameClass 
 {
@@ -18,7 +19,9 @@ private:
 	std::unique_ptr<sf::RenderWindow> window;
 
 	sf::Texture backgroundImageTexture;
+	sf::Texture bulletTexture;
 	std::pair<int, int> slidingWindow;
+	BestVector <Bullet*> activeBullets;
 
 	Spaceship* player; // player is a singleton, as a single instace of a player must be active
 	
@@ -31,10 +34,12 @@ private:
 	void update();
 	void updateSlidingWindow();  
 	void updatePlayer();
+	void updateObjects();
 
 	void render();
 	void drawBackground();
-	void drawPlayer();
+	void drawObject(Object *);
+	void drawBullets();
 
 public:
 

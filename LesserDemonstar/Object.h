@@ -18,10 +18,11 @@ protected:
 	float speed;
 
 public:
+	float getSpeed();
 	sf::Vector2f pos;
 	int xSize, ySize;
 	sf::Texture texture;
 	std::vector< std::vector <bool> > hasPixelSet;
-	bool collidesWith(Object* other); // two objects collide if at least two set pixels overlap
+	bool collidesWith(Object* ); // two objects collide if at least two set pixels overlap
 };
 

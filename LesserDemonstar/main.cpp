@@ -4,14 +4,15 @@
     [*] Graphic interface
     [] RTTI
     [] Abstract Classes
-    [] Overloaded operators (0 / 4)
+    [*] Overloaded operators (4 / 4)
     [*] Heap Memory Allocation
     [] Exceptions
-    [] Lambda expressions
-    [] Templates
-    [*] Smart pointers
-    [] Desing patterns (1 / 2)
-    [] Features of C++17
+    [*] STL
+    [*] Lambda expressions in spaceship.cpp
+    [*] Templates
+    [*] Smart pointers in GameClass.cpp
+    [] Desing patterns (1 / 2) in Spaceship.cpp
+    [*] Features of C++17 updateObjects in GameClass
 */
 
 Spaceship* Spaceship::instance = nullptr;
