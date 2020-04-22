@@ -3,7 +3,7 @@
     Requirements:
     [*] Graphic interface
     [] RTTI
-    [] Abstract Classes
+    [*] Abstract Classes
     [*] Overloaded operators (4 / 4)
     [*] Heap Memory Allocation
     [] Exceptions

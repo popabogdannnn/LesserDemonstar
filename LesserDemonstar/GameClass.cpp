@@ -28,9 +28,9 @@ void GameClass::loadTextures()
 void GameClass::initWindow()
 {
 	this->window = nullptr;
-	this->window = std::unique_ptr<sf::RenderWindow> (
-		new sf::RenderWindow(sf::VideoMode(512, 700), 
-			"LesserDemonstar", 
+	this->window = std::unique_ptr<sf::RenderWindow>(
+		new sf::RenderWindow(sf::VideoMode(512, 700),
+			"LesserDemonstar",
 			sf::Style::Titlebar | sf::Style::Close)); // smart pointer for window
 	this->window->setFramerateLimit(60);
 }
@@ -100,7 +100,7 @@ void GameClass::updateObjects()
 {
 	Bullet* del = nullptr;
 	//std::cout << this->activeBullets() << "\n";
-	
+
 	for (int i = 0; i < this->activeBullets(); i++) {
 		this->activeBullets[i]->pos.y += this->activeBullets[i]->getSpeed();
 		//std::cout << this->activeBullets[i]->pos.y << "\n";
@@ -122,7 +122,7 @@ void GameClass::render()
 	this->window->clear();
 
 	this->drawBackground();
-	this->drawObject(this -> player);
+	this->drawObject(this->player);
 	this->drawBullets();
 	this->window->display();
 
@@ -138,12 +138,12 @@ void GameClass::drawBackground()
 	this->window->draw(backImg);
 }
 
-void GameClass::drawObject(Object *obj)
-{       
+void GameClass::drawObject(Object* obj)
+{
 	sf::Sprite objSprite;
 	objSprite.setTexture(obj->texture);
 	objSprite.setPosition(obj->pos);
-	
+
 	this->window->draw(objSprite);
 }
 
@@ -174,7 +174,7 @@ GameClass::~GameClass()
 
 
 //public functions
-void GameClass::run() 
+void GameClass::run()
 {
 
 	while (this->window->isOpen()) {

@@ -5,9 +5,9 @@
 Spaceship::Spaceship()
 {
 	//std::cout << "IM ALIVE\n";
-	this -> score = 0;
+	this->score = 0;
 	this->speed = 2.5;
-	this -> HP = 100;
+	this->HP = 100;
 	this->shootingSpeed = 25;
 }
 
@@ -39,12 +39,12 @@ void Spaceship::updateHP(int x)
 
 int Spaceship::getScore()
 {
-	return this -> score;
+	return this->score;
 }
 
 int Spaceship::getHP()
 {
-	return this -> HP;
+	return this->HP;
 }
 
 float Spaceship::getSpeed()

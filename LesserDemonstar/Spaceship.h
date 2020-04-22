@@ -9,7 +9,7 @@ private:
 	int score;
 	int HP;
 	int shootingSpeed; // shoots every shootingSpeed frames
-	int reloadingCooldown; 
+	int reloadingCooldown;
 	Spaceship();
 
 public:
@@ -17,19 +17,18 @@ public:
 	Spaceship* getInstance();
 
 	void updateScore(int);
-	void updateHP(int );
+	void updateHP(int);
 
 	int getScore();
 	int getHP();
 	float getSpeed();
-	
+
 	void setSpeed(float);
-	void setShootingSpeed(int); 
+	void setShootingSpeed(int);
 
 	void updateReloadingCooldown();
 
 	Bullet* shoot(sf::Texture);
-	
+
 	bool canShoot();
 };
-

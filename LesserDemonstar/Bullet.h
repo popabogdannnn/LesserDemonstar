@@ -7,9 +7,8 @@ private:
 	float damage;
 
 public:
-	
+
 	Bullet(sf::Texture);
 
 	int getDamage();
 };
-
