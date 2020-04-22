@@ -19,8 +19,8 @@ private:
 
 	sf::Texture backgroundImageTexture;
 	std::pair<int, int> slidingWindow;
-	
-	Spaceship player;
+
+	Spaceship* player; // player is a singleton, as a single instace of a player must be active
 	
 
 	void loadTextures();
@@ -29,7 +29,8 @@ private:
 	void pollEvents();
 
 	void update();
-	void updateSlidingWindow();       
+	void updateSlidingWindow();  
+	void updatePlayer();
 
 	void render();
 	void drawBackground();

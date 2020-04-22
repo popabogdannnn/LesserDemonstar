@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <SFML\Graphics.hpp>
 #include <SFML\System.hpp>
 #include <SFML\Window.hpp>
@@ -13,13 +14,13 @@
 
 class Object
 {
-private:
-	
+protected:
+	float speed;
 
 public:
-	int x, y;
+	sf::Vector2f pos;
 	int xSize, ySize;
-	sf::Sprite texture;
+	sf::Texture texture;
 	std::vector< std::vector <bool> > hasPixelSet;
 	bool collidesWith(Object* other); // two objects collide if at least two set pixels overlap
 };

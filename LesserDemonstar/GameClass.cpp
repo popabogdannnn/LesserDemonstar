@@ -10,9 +10,15 @@ void GameClass::loadTextures()
 		std::cout << "Nu am reusit";
 	}
 
-	/*if (!this->player.texture.loadFromFile("Textures/Spaceship1.png")) {
+	if (!this->player->texture.loadFromFile("Textures/Spaceship.png")) {
 		std::cout << "Nu am reusit";
-	}*/
+	}
+
+	this->player->xSize = 128;
+	this->player->ySize = 128;
+
+	this->player->pos.x = this->window->getSize().x / 2 - this->player->xSize / 2;
+	this->player->pos.y = this->window->getSize().y - this->player->ySize;
 }
 
 void GameClass::initWindow()
@@ -29,7 +35,6 @@ void GameClass::initVarsForBackground()
 {
 	this->slidingWindow.second = 4095;
 	this->slidingWindow.first = this->slidingWindow.second - 699;
-	//bau
 }
 
 void GameClass::pollEvents()
@@ -48,6 +53,7 @@ void GameClass::update()
 {
 	this->pollEvents();
 	this->updateSlidingWindow();
+	this->updatePlayer();
 }
 
 void GameClass::updateSlidingWindow()
@@ -61,6 +67,22 @@ void GameClass::updateSlidingWindow()
 	}
 }
 
+void GameClass::updatePlayer()
+{
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		if (this->player->pos.x > 0) {
+			this->player->pos.x -= this->player->getSpeed();
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		if (this->player->pos.x + this->player->xSize < 512) {
+			this->player->pos.x += this->player->getSpeed();
+		}
+	}
+}
+
 
 
 void GameClass::render()
@@ -69,6 +91,7 @@ void GameClass::render()
 	this->window->clear();
 
 	this->drawBackground();
+	this->drawPlayer();
 
 	this->window->display();
 
@@ -86,15 +109,20 @@ void GameClass::drawBackground()
 
 void GameClass::drawPlayer()
 {
-
+	sf::Sprite playerSpaceship;
+	playerSpaceship.setTexture(this->player->texture);
+	playerSpaceship.setPosition(this->player->pos);
+	
+	this->window->draw(playerSpaceship);
 }
 
 //constructor / destructor
 
 GameClass::GameClass()
 {
-	this->loadTextures();
 	this->initWindow();
+	this->player = player->getInstance();
+	this->loadTextures();
 	this->initVarsForBackground();
 }
 

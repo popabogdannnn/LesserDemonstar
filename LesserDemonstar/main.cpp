@@ -10,10 +10,11 @@
     [] Lambda expressions
     [] Templates
     [*] Smart pointers
-    [] Desing patterns
+    [] Desing patterns (1 / 2)
     [] Features of C++17
 */
 
+Spaceship* Spaceship::instance = nullptr;
 
 int main() 
 {
