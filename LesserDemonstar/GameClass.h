@@ -21,7 +21,7 @@ private:
 	sf::Texture backgroundImageTexture;
 	sf::Texture bulletTexture;
 	std::pair<int, int> slidingWindow;
-	BestVector <Bullet*> activeBullets;
+	BestVector <Object*> activeObjects;
 
 	Spaceship* player; // player is a singleton, as a single instace of a player must be active
 

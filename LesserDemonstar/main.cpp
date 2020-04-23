@@ -2,16 +2,16 @@
 /*
     Requirements:
     [*] Graphic interface
-    [] RTTI
-    [*] Abstract Classes
+    [*] RTTI
+    [*] Abstract Classes Object class is abstract
     [*] Overloaded operators (4 / 4)
     [*] Heap Memory Allocation
-    [] Exceptions
+    [] Exceptions in gameclass.cpp in loadingTextures
     [*] STL
     [*] Lambda expressions in spaceship.cpp
     [*] Templates
     [*] Smart pointers in GameClass.cpp
-    [] Desing patterns (1 / 2) in Spaceship.cpp
+    [] Desing patterns (1 / 2) Singleton in Spaceship.cpp Factory in Object
     [*] Features of C++17 updateObjects in GameClass
 */
 

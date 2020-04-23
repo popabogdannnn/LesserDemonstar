@@ -91,26 +91,38 @@ void GameClass::updatePlayer()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		if (this->player->canShoot()) {
-			activeBullets += this->player->shoot(this->bulletTexture);
+			activeObjects += this->player->shoot(this->bulletTexture);
 		}
 	}
 }
 
 void GameClass::updateObjects()
 {
-	Bullet* del = nullptr;
-	//std::cout << this->activeBullets() << "\n";
+	Object* del = nullptr;
+	
+	//update positions
+	for (int i = 0; i < this->activeObjects(); i++) {
+		this->activeObjects[i]->pos.y += this->activeObjects[i]->getSpeed();
+	}
 
-	for (int i = 0; i < this->activeBullets(); i++) {
-		this->activeBullets[i]->pos.y += this->activeBullets[i]->getSpeed();
-		//std::cout << this->activeBullets[i]->pos.y << "\n";
-		if (auto position = this->activeBullets[i]->pos.y; position < -20) {
-			del = this->activeBullets[i];
+	//check collisions, if collides then move out of screen
+	for (int i = 0; i < this->activeObjects(); i++) {
+		if (Bullet* bullet = dynamic_cast<Bullet*>(activeObjects[i]); bullet != nullptr) {
+			for (int j = i + 1; j < this->activeObjects(); j++) {
+
+			}
 		}
 	}
 
-	if (del != nullptr) {
-		this->activeBullets -= del;
+
+	//delete out of screen objects
+	for (int i = 0; i < this->activeObjects(); i++) {
+		if (auto position = this->activeObjects[i]->pos.y; position < -20) {
+			del = this->activeObjects[i];
+			this->activeObjects -= del;
+			delete del;
+			i--;
+		}
 	}
 }
 
@@ -149,8 +161,8 @@ void GameClass::drawObject(Object* obj)
 
 void GameClass::drawBullets()
 {
-	for (int i = 0; i < this->activeBullets(); i++) {
-		this->drawObject(this->activeBullets[i]);
+	for (int i = 0; i < this->activeObjects(); i++) {
+		this->drawObject(this->activeObjects[i]);
 	}
 }
 

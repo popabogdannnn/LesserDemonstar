@@ -6,9 +6,9 @@ Spaceship::Spaceship()
 {
 	//std::cout << "IM ALIVE\n";
 	this->score = 0;
-	this->speed = 2.5;
+	this->speed = 5.0;
 	this->HP = 100;
-	this->shootingSpeed = 25;
+	this->shootingSpeed = 13;
 }
 
 //public functions

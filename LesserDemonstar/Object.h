@@ -12,6 +12,10 @@
 	(xSize, ySize) pixels on x axis and y axis
 */
 
+enum ObjectType {
+	OT_Spaceship, OT_Bullet, OT_Asteroid
+};
+
 class Object
 {
 protected:
@@ -24,4 +28,9 @@ public:
 	sf::Texture texture;
 	std::vector< std::vector <bool> > hasPixelSet;
 	bool collidesWith(Object*); // two objects collide if at least two set pixels overlap
+	static Object* Create(ObjectType);
+	
+	Object();
+	Object(float, float, float, sf::Texture);
+	virtual ~Object() = 0;
 };

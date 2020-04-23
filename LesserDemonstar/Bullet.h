@@ -9,6 +9,7 @@ private:
 public:
 
 	Bullet(sf::Texture);
+	~Bullet();
 
 	int getDamage();
 };
