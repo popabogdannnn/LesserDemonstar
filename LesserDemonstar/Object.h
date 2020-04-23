@@ -27,6 +27,7 @@ public:
 	int xSize, ySize;
 	sf::Texture texture;
 	std::vector< std::vector <bool> > hasPixelSet;
+	
 	bool collidesWith(Object*); // two objects collide if at least two set pixels overlap
 	static Object* Create(ObjectType);
 	
