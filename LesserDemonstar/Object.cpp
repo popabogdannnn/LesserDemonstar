@@ -15,8 +15,9 @@ bool Object::collidesWith(Object* other)
 				
 				int otherX = onScreenX - other->pos.x;
 				int otherY = onScreenY - other->pos.y; // coordinate of pixel relative to other object
-
-				if (otherX >= 0 && otherX < other->xSize && otherX >= 0 && otherY < other->ySize) {
+				//std::cout << onScreenX << " " << onScreenY << "\n";
+				//getchar();
+				if (otherX >= 0 && otherX < other->xSize && otherY >= 0 && otherY < other->ySize) {
 					if (other->hasPixelSet[otherX][otherY]) {
 						return true;
 					}
@@ -60,13 +61,7 @@ Object::Object(float _x, float _y, float _speed, sf::Texture _texture)
 
 Object::~Object()
 {
-	std::cout << "Obiect distrus\n";
+	//std::cout << "Obiect distrus\n";
 }
 
-Object* Object::Create(ObjectType type)
-{
-	if (type == OT_Bullet) {
-		
-	}
-	return nullptr;
-}
+

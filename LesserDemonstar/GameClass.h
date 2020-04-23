@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "Spaceship.h"
 #include "Bullet.h"
+#include "Asteroid.h"
 #include "BestVector.h"
 
 class GameClass
@@ -19,10 +20,15 @@ private:
 	std::unique_ptr<sf::RenderWindow> window;
 
 	sf::Texture backgroundImageTexture;
+	sf::Texture playerTexture;
 	sf::Texture bulletTexture;
+	sf::Texture asteroidTexture;
 	std::pair<int, int> slidingWindow;
 	BestVector <Object*> activeObjects;
-
+	
+	int spawnAsteroidEvery;
+	int spawnAsteroidCooldown;
+	
 	Spaceship* player; // player is a singleton, as a single instace of a player must be active
 
 
@@ -35,6 +41,7 @@ private:
 	void updateSlidingWindow();
 	void updatePlayer();
 	void updateObjects();
+	void addAsteroid(); // adds asteroid if cooldown is 0
 
 	void render();
 	void drawBackground();

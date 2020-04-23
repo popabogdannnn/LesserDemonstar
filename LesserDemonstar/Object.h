@@ -29,7 +29,7 @@ public:
 	std::vector< std::vector <bool> > hasPixelSet;
 	
 	bool collidesWith(Object*); // two objects collide if at least two set pixels overlap
-	static Object* Create(ObjectType);
+	static Object* Create(ObjectType type, float _x, float _y, float _speed, sf::Texture _texture);
 	
 	Object();
 	Object(float, float, float, sf::Texture);

@@ -1,19 +1,15 @@
 #include "Bullet.h"
 
-Bullet::Bullet(sf::Texture bulletTexture)
+Bullet::Bullet(float _x, float _y, float _speed, sf::Texture _texture): Object(_x, _y, _speed, _texture)
 {
-	std::cout << "Creat\n";
+	//std::cout << "Creat\n";
 	this->damage = 10;
-	this->speed = -15;
-	this->texture = bulletTexture;
-	this->xSize = bulletTexture.getSize().x;
-	this->ySize = bulletTexture.getSize().y;
 }
 
 Bullet::~Bullet()
 {
 	//delete &this->damage;
-	std::cout << "Bullet destroyed\n";
+	//std::cout << "Bullet destroyed\n";
 }
 
 int Bullet::getDamage()

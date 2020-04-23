@@ -4,11 +4,11 @@ class Bullet :
 	public Object
 {
 private:
-	float damage;
+	int damage;
 
 public:
 
-	Bullet(sf::Texture);
+	Bullet(float, float, float, sf::Texture);
 	~Bullet();
 
 	int getDamage();

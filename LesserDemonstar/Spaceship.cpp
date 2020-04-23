@@ -2,11 +2,10 @@
 
 //private functions
 
-Spaceship::Spaceship()
+Spaceship::Spaceship(float _x, float _y, float _speed, sf::Texture _texture): Object(_x, _y, _speed, _texture)
 {
 	//std::cout << "IM ALIVE\n";
 	this->score = 0;
-	this->speed = 5.0;
 	this->HP = 100;
 	this->shootingSpeed = 13;
 }
@@ -19,10 +18,10 @@ Spaceship::~Spaceship()
 	this->instance = nullptr;
 }
 
-Spaceship* Spaceship::getInstance()
+Spaceship* Spaceship::getInstance(float _x, float _y, float _speed, sf::Texture _texture)
 {
 	if (this->instance == nullptr) {
-		this->instance = new Spaceship;
+		this->instance = new Spaceship(_x, _y, _speed, _texture);
 	}
 	return this->instance;
 }
@@ -68,14 +67,10 @@ void Spaceship::updateReloadingCooldown()
 	this->reloadingCooldown = max(this->reloadingCooldown - 1, 0);
 }
 
-Bullet* Spaceship::shoot(sf::Texture bulletTexture)
+void Spaceship::shoot()
 {
 
 	this->reloadingCooldown = this->shootingSpeed;
-	Bullet* newBullet = new Bullet(bulletTexture);
-	newBullet->pos.x = this->pos.x + this->xSize / 2 - newBullet->xSize / 2;
-	newBullet->pos.y = this->pos.y - newBullet->ySize - 3 * newBullet->getSpeed();
-	return newBullet;
 }
 
 
