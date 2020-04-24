@@ -25,6 +25,8 @@ private:
 	sf::Texture playerTexture;
 	sf::Texture bulletTexture;
 	sf::Texture asteroidTexture;
+	sf::Texture playButtonTexture0;
+	sf::Texture playButtonTexture1;
 	std::pair<int, int> slidingWindow;
 	BestVector <Object*> activeObjects;
 	
@@ -42,16 +44,28 @@ private:
 	void pollEvents();
 
 	void update();
+	void updateMenu();
+	void updateInGame();
+	void updateGameOver();
+	void pollEventPlayButton();
+
 	void updateSlidingWindow();
 	void updatePlayer();
 	void updateObjects();
 	void addAsteroid(); // adds asteroid if cooldown is 0
 
 	void render();
+	void renderMenu();
+	void renderInGame();
+	void renderGameOver();
+
 	void drawBackground();
+	void drawText(int, int, int, std::string);
+	void drawPlayButton();
 	void drawObject(Object*);
 	void drawBullets();
 	void drawPlayerStats();
+	void drawCredentials();
 
 public:
 

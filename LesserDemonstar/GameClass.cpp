@@ -40,6 +40,14 @@ void GameClass::loadTextures()
 		if (!this->textFont.loadFromFile("Textures/font.ttf")) {
 			throw myException("Textures/font.ttf");
 		}
+
+		if (!this->playButtonTexture0.loadFromFile("Textures/playAJ0.png")) {
+			throw myException("Textures/playAJ0.png");
+		}
+
+		if (!this->playButtonTexture1.loadFromFile("Textures/playAJ1.png")) {
+			throw myException("Textures/playAJ1.png");
+		}
 	}
 	catch (std::exception& e) {
 		std::cout << e.what() << "\n";
@@ -79,10 +87,52 @@ void GameClass::pollEvents()
 void GameClass::update()
 {
 	this->pollEvents();
+	if (this->gameState == 0) {
+		this->updateMenu();
+	}
+
+	if (this->gameState == 1) {
+		this->updateInGame();
+	}
+
+	if (this->gameState == 2) {
+		this->updateGameOver();
+	}
+	
+}
+
+void GameClass::updateMenu()
+{
+	this->updateSlidingWindow();
+	this->pollEventPlayButton();
+}
+
+void GameClass::updateInGame()
+{
 	this->updateSlidingWindow();
 	this->updatePlayer();
 	this->addAsteroid();
 	this->updateObjects();
+}
+
+void GameClass::updateGameOver()
+{
+	this->updateSlidingWindow();
+}
+
+void GameClass::pollEventPlayButton()
+{
+	int xForButton = 256 - this->playButtonTexture0.getSize().x / 2;
+	int yForButton = 500;
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
+
+	if (mousePos.x >= xForButton && mousePos.x <= xForButton + this->playButtonTexture0.getSize().x &&
+		mousePos.y >= yForButton && mousePos.y <= yForButton + this->playButtonTexture0.getSize().y) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			this->gameState = 1;
+		}
+	}
 }
 
 void GameClass::updateSlidingWindow()
@@ -135,7 +185,7 @@ void GameClass::updatePlayer()
 	}
 
 	if (this->player->getHP() == 0) {
-		
+		this->gameState = 2;
 	}
 }
 
@@ -205,12 +255,42 @@ void GameClass::render()
 {
 
 	this->window->clear();
+
+	if (this->gameState == 0) {
+		this->renderMenu();
+	}
+
+	if (this->gameState == 1) {
+		this->renderInGame();
+	}
+
+	if (this->gameState == 2) {
+		this->renderGameOver();
+	}
+	
+	this->window->display();
+
+}
+
+void GameClass::renderMenu()
+{
+	this->drawBackground();
+	this->drawCredentials();
+	this->drawPlayButton();
+}
+
+void GameClass::renderInGame()
+{
 	this->drawBackground();
 	this->drawObject(this->player);
 	this->drawBullets();
 	this->drawPlayerStats();
-	this->window->display();
+}
 
+void GameClass::renderGameOver()
+{
+	this->drawBackground();
+	this->drawText(150, 500, 40, "Score: " + this->intToString(this->player->getScore()));
 }
 
 void GameClass::drawBackground()
@@ -221,6 +301,39 @@ void GameClass::drawBackground()
 	backImg.setTextureRect(sf::IntRect(0, this->slidingWindow.first, 511, this->slidingWindow.second));
 
 	this->window->draw(backImg);
+}
+
+void GameClass::drawText(int x, int y, int sz, std::string txt)
+{
+	sf::Text text;
+	text.setFont(this->textFont);
+	text.setCharacterSize(sz);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(sf::Vector2f(x, y));
+	text.setString(txt);
+
+	this->window->draw(text);
+}
+
+void GameClass::drawPlayButton()
+{
+	sf::Sprite playButtonSprite;
+
+	int xForButton = 256 - this->playButtonTexture0.getSize().x / 2;
+	int yForButton = 500;
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
+
+	if (mousePos.x >= xForButton && mousePos.x <= xForButton + this->playButtonTexture0.getSize().x &&
+		mousePos.y >= yForButton && mousePos.y <= yForButton + this->playButtonTexture0.getSize().y) {
+		playButtonSprite.setTexture(this->playButtonTexture1);
+	}
+	else {
+		playButtonSprite.setTexture(this->playButtonTexture0);
+	}
+
+	playButtonSprite.setPosition(sf::Vector2f(xForButton, yForButton));
+	this->window->draw(playButtonSprite);
 }
 
 void GameClass::drawObject(Object* obj)
@@ -241,23 +354,14 @@ void GameClass::drawBullets()
 
 void GameClass::drawPlayerStats()
 {
-	sf::Text scoreText;
-	scoreText.setFont(this->textFont);
-	scoreText.setCharacterSize(24);
-	scoreText.setFillColor(sf::Color::White);
-	scoreText.setPosition(sf::Vector2f(5, 5));
-	scoreText.setString("Score: " + this->intToString(this->player->getScore()));
-	
-	this->window->draw(scoreText);
+	this->drawText(5, 5, 24, "Score: " + this->intToString(this->player->getScore()));
+	this->drawText(5, 34, 24, "HP: " + this->intToString(this->player->getHP()));
+}
 
-	sf::Text healthText;
-	healthText.setFont(this->textFont);
-	healthText.setCharacterSize(24);
-	healthText.setFillColor(sf::Color::White);
-	healthText.setPosition(sf::Vector2f(5, 34));
-	healthText.setString("HP: " + this->intToString(this->player->getHP()));
-
-	this->window->draw(healthText);
+void GameClass::drawCredentials()
+{
+	this->drawText(350, 672, 12, "Code by: Bogdan Ioan Popa");
+	this->drawText(350, 685, 12, "Textures by: NST_Creations");
 }
 
 
