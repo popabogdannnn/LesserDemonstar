@@ -3,16 +3,16 @@
     Requirements:
     [*] Graphic interface
     [*] RTTI
-    [*] Abstract Classes Object class is abstract
+    [*] Abstract Classes in Object class is abstract
     [*] Overloaded operators (4 / 4)
-    [*] Heap Memory Allocation
-    [] Exceptions in gameclass.cpp in loadingTextures
-    [*] STL
-    [*] Lambda expressions in spaceship.cpp
-    [*] Templates
-    [*] Smart pointers in GameClass.cpp
+    [*] Heap Memory Allocation all over the place
+    [*] Exceptions in gameclass.cpp in loadingTextures
+    [*] STL in BestVector.h, in Object.h
+    [*] Lambda expressions in spaceship.cpp, in GameClass.cpp
+    [*] Templates in BestVector.h
+    [*] Smart pointers in GameClass.h
     [*] Desing patterns (2 / 2) Singleton in Spaceship.cpp Factory in Object and below
-    [*] Features of C++17 updateObjects in GameClass
+    [*] Features of C++17 updateObjects, updatePlayer in GameClass
 */
 
 Spaceship* Spaceship::instance = nullptr;
@@ -28,6 +28,7 @@ Object* Object::Create(ObjectType type, float _x, float _y, float _speed, sf::Te
         Bullet* ret = new Bullet(_x, _y, _speed, _texture);
         return ret;
     }
+
     return nullptr;
 }
 

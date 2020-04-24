@@ -4,22 +4,47 @@
 //private functions
 
 
+std::string GameClass::intToString(int X)
+{
+	std::string ret;
+	
+	do {
+		ret.push_back('0' + X % 10);
+		X /= 10;
+	} while (X);
+
+	std::reverse(ret.begin(), ret.end());
+
+	return ret;
+}
+
 void GameClass::loadTextures()
 {
-	if (!this->backgroundImageTexture.loadFromFile("Textures/Background.png")) {
-		std::cout << "Nu am reusit";
-	}
+	try {
+		if (!this->backgroundImageTexture.loadFromFile("Textures/Background.png")) {
+			throw myException("Textures/Background.png");
+		}
 
-	if (!this->playerTexture.loadFromFile("Textures/Spaceship.png")) {
-		std::cout << "Nu am reusit";
-	}
+		if (!this->playerTexture.loadFromFile("Textures/Spaceship.png")) {
+			throw myException("Textures/Spaceship.png");
+		}
 
-	if (!this->bulletTexture.loadFromFile("Textures/Laser.png")) {
-		std::cout << "Nu am reusit";
-	}
+		if (!this->bulletTexture.loadFromFile("Textures/Laser.png")) {
+			throw myException("Textures/Laser.png");
+		}
 
-	if (!this->asteroidTexture.loadFromFile("Textures/Meteorite.png")) {
-		std::cout << "Nu am reusit";
+		if (!this->asteroidTexture.loadFromFile("Textures/Meteorite.png")) {
+			throw myException("Textures/Meteorite.png");
+		}
+
+		if (!this->textFont.loadFromFile("Textures/font.ttf")) {
+			throw myException("Textures/font.ttf");
+		}
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << "\n";
+		system("pause");
+		exit(0);
 	}
 }
 
@@ -101,16 +126,16 @@ void GameClass::updatePlayer()
 	for (int i = 0; i < activeObjects(); i++) {
 		if (Asteroid* asteroid = dynamic_cast<Asteroid*>(activeObjects[i]); asteroid != nullptr) {
 			if (asteroid->pos.y >= this->window->getSize().y - this->player->ySize - asteroid->ySize) {
-				auto max = [](auto a, auto b) {return a > b ? a : b; };
-				auto min = [](auto a, auto b) {return a < b ? a : b; };
-				if(max(asteroid->pos.x, this->player->pos.x) <= min(asteroid->pos.x + asteroid->xSize, this->player->pos.x + this->player->xSize)) {
-					if (this->player->collidesWith(asteroid)) {
-						asteroid->pos.x = -100;
-						this->player->updateHP(-asteroid->getDamage());
-					}
+				if (this->player->collidesWith(asteroid)) {
+					asteroid->pos.x = -100;
+					this->player->updateHP(-asteroid->getDamage());
 				}
 			}
 		}
+	}
+
+	if (this->player->getHP() == 0) {
+		
 	}
 }
 
@@ -136,7 +161,7 @@ void GameClass::updateObjects()
 						bullet->pos.x = -100;
 						if (asteroid->getHP() <= 0) {
 							this->player->updateScore(10);
-							asteroid->pos.x = -100;
+							asteroid->pos.x = -200;
 						}
 					}
 				}
@@ -180,10 +205,10 @@ void GameClass::render()
 {
 
 	this->window->clear();
-
 	this->drawBackground();
 	this->drawObject(this->player);
 	this->drawBullets();
+	this->drawPlayerStats();
 	this->window->display();
 
 }
@@ -214,6 +239,27 @@ void GameClass::drawBullets()
 	}
 }
 
+void GameClass::drawPlayerStats()
+{
+	sf::Text scoreText;
+	scoreText.setFont(this->textFont);
+	scoreText.setCharacterSize(24);
+	scoreText.setFillColor(sf::Color::White);
+	scoreText.setPosition(sf::Vector2f(5, 5));
+	scoreText.setString("Score: " + this->intToString(this->player->getScore()));
+	
+	this->window->draw(scoreText);
+
+	sf::Text healthText;
+	healthText.setFont(this->textFont);
+	healthText.setCharacterSize(24);
+	healthText.setFillColor(sf::Color::White);
+	healthText.setPosition(sf::Vector2f(5, 34));
+	healthText.setString("HP: " + this->intToString(this->player->getHP()));
+
+	this->window->draw(healthText);
+}
+
 
 
 //constructor / destructor
@@ -222,12 +268,13 @@ GameClass::GameClass()
 {
 	this->spawnAsteroidEvery = 1 * 60;
 	this->spawnAsteroidCooldown = 0;
-	this->initWindow();
 	this->loadTextures();
+	this->initWindow();
 	this->player = player->getInstance(0, 0, 5.0, this->playerTexture);
 	this->player->pos.x = this->window->getSize().x / 2 - this->player->xSize / 2;
 	this->player->pos.y = this->window->getSize().y - this->player->ySize;
 	this->initVarsForBackground();
+	this->gameState = 0;
 }
 
 

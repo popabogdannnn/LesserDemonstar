@@ -11,6 +11,7 @@
 #include "Bullet.h"
 #include "Asteroid.h"
 #include "BestVector.h"
+#include "myException.h"
 
 class GameClass
 {
@@ -19,6 +20,7 @@ private:
 
 	std::unique_ptr<sf::RenderWindow> window;
 
+	sf::Font textFont;
 	sf::Texture backgroundImageTexture;
 	sf::Texture playerTexture;
 	sf::Texture bulletTexture;
@@ -28,9 +30,11 @@ private:
 	
 	int spawnAsteroidEvery;
 	int spawnAsteroidCooldown;
+	int gameState; // gameState = 0 in menu, = 1 in game, = 2 in game over
 	
 	Spaceship* player; // player is a singleton, as a single instace of a player must be active
 
+	std::string intToString(int);
 
 	void loadTextures();
 	void initWindow();
@@ -47,6 +51,7 @@ private:
 	void drawBackground();
 	void drawObject(Object*);
 	void drawBullets();
+	void drawPlayerStats();
 
 public:
 

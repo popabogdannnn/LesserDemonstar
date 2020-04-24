@@ -151,6 +151,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GameClass.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="myException.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Spaceship.cpp" />
   </ItemGroup>
@@ -159,6 +160,7 @@
     <ClInclude Include="BestVector.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="GameClass.h" />
+    <ClInclude Include="myException.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Spaceship.h" />
   </ItemGroup>

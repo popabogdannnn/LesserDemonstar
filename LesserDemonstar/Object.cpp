@@ -7,6 +7,12 @@ float Object::getSpeed()
 
 bool Object::collidesWith(Object* other)
 {
+	auto max = [](auto a, auto b) {return a > b ? a : b; };
+	auto min = [](auto a, auto b) {return a < b ? a : b; };
+	if (max(this->pos.x, other->pos.x) > min(this->pos.x + this->xSize, other->pos.x + other->xSize)) {
+		return false;
+	}
+		
 	for (int x = 0; x < this->xSize; x++) {
 		for (int y = 0; y < this->ySize; y++) {
 			if (this->hasPixelSet[x][y]) {
