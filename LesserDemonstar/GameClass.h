@@ -27,6 +27,8 @@ private:
 	sf::Texture asteroidTexture;
 	sf::Texture playButtonTexture0;
 	sf::Texture playButtonTexture1;
+	sf::Texture logoTexture;
+	sf::Texture gameOverTexture;
 	std::pair<int, int> slidingWindow;
 	BestVector <Object*> activeObjects;
 	
@@ -60,8 +62,10 @@ private:
 	void renderGameOver();
 
 	void drawBackground();
+	void drawLogo();
 	void drawText(int, int, int, std::string);
 	void drawPlayButton();
+	void drawGameOver();
 	void drawObject(Object*);
 	void drawBullets();
 	void drawPlayerStats();

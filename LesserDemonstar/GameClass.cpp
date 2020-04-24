@@ -48,6 +48,14 @@ void GameClass::loadTextures()
 		if (!this->playButtonTexture1.loadFromFile("Textures/playAJ1.png")) {
 			throw myException("Textures/playAJ1.png");
 		}
+
+		if (!this->logoTexture.loadFromFile("Textures/Logo_1.png")) {
+			throw myException("Textures/Logo_1.png");
+		}
+
+		if (!this->gameOverTexture.loadFromFile("Textures/GameOver.png")) {
+			throw myException("Textures/GameOver.png");
+		}
 	}
 	catch (std::exception& e) {
 		std::cout << e.what() << "\n";
@@ -275,6 +283,7 @@ void GameClass::render()
 void GameClass::renderMenu()
 {
 	this->drawBackground();
+	this->drawLogo();
 	this->drawCredentials();
 	this->drawPlayButton();
 }
@@ -290,6 +299,7 @@ void GameClass::renderInGame()
 void GameClass::renderGameOver()
 {
 	this->drawBackground();
+	this->drawGameOver();
 	this->drawText(150, 500, 40, "Score: " + this->intToString(this->player->getScore()));
 }
 
@@ -301,6 +311,13 @@ void GameClass::drawBackground()
 	backImg.setTextureRect(sf::IntRect(0, this->slidingWindow.first, 511, this->slidingWindow.second));
 
 	this->window->draw(backImg);
+}
+
+void GameClass::drawLogo()
+{
+	sf::Sprite logoSprite;
+	logoSprite.setTexture(this->logoTexture);
+	this->window->draw(logoSprite);
 }
 
 void GameClass::drawText(int x, int y, int sz, std::string txt)
@@ -334,6 +351,18 @@ void GameClass::drawPlayButton()
 
 	playButtonSprite.setPosition(sf::Vector2f(xForButton, yForButton));
 	this->window->draw(playButtonSprite);
+}
+
+void GameClass::drawGameOver()
+{
+	sf::Sprite go;
+	go.setTexture(this->gameOverTexture);
+	go.setPosition(sf::Vector2f(
+		256 - this->gameOverTexture.getSize().x / 2,
+		250
+		));
+	
+	this->window->draw(go);
 }
 
 void GameClass::drawObject(Object* obj)
