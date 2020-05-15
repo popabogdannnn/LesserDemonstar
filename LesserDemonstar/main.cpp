@@ -38,6 +38,5 @@ int main()
     GameClass game;
 
     game.run();
-   
     return 0;
 }

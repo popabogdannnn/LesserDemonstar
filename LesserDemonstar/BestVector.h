@@ -14,7 +14,8 @@ public:
 	void operator -=(T);
 	T operator [](int);
 	int operator()();
-	
+	void pop_back();
+	T back();
 };
 
 template<class T>
@@ -50,4 +51,16 @@ template<class T>
 inline int BestVector<T>::operator()()
 {
 	return data.size();
+}
+
+template<class T>
+inline void BestVector<T>::pop_back()
+{
+	this->data.pop_back();
+}
+
+template<class T>
+inline T BestVector<T>::back()
+{
+	return this->data.back();
 }

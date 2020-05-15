@@ -14,8 +14,8 @@ Spaceship::Spaceship(float _x, float _y, float _speed, sf::Texture _texture): Ob
 
 Spaceship::~Spaceship()
 {
-	delete this->instance;
 	this->instance = nullptr;
+	//std::cout << "nava distrusa\n";
 }
 
 Spaceship* Spaceship::getInstance(float _x, float _y, float _speed, sf::Texture _texture)

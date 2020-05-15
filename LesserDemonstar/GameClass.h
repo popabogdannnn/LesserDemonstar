@@ -71,6 +71,7 @@ private:
 	void drawPlayerStats();
 	void drawCredentials();
 
+
 public:
 
 	GameClass();

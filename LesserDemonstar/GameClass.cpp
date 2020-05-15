@@ -413,7 +413,11 @@ GameClass::GameClass()
 
 GameClass::~GameClass()
 {
-
+	delete this->player;
+	while (this->activeObjects() > 0) {
+		delete this->activeObjects.back();
+		this->activeObjects.pop_back();
+	}
 }
 
 
