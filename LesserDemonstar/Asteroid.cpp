@@ -25,5 +25,5 @@ Asteroid::Asteroid(float _x, float _y, float _speed, sf::Texture _texture): Obje
 
 Asteroid::~Asteroid()
 {
-	std::cout << "Asteroid distrus\n";
+	//std::cout << "Asteroid distrus\n";
 }
